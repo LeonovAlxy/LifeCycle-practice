@@ -5,13 +5,13 @@ const LifecycleCompFunc = () => {
     return setCount((prev) => prev + 1);
   };
   useEffect(() => {
+    console.log("FuncComp-componentDidMount");
     return async function dataRequest() {
       const response = await fetch(
         "https://todo-redev.herokuapp.com/api/users"
       );
       const data = await response.json();
       console.log({ data });
-      console.log("FuncComp-componentDidMount");
     };
   }, []);
 
