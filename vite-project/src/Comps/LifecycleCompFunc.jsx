@@ -1,18 +1,16 @@
 import { useEffect, useState } from "react";
 const LifecycleCompFunc = () => {
   const [count, setCount] = useState(0);
-  const handleClickIncrement = () => {
-    return setCount((prev) => prev + 1);
-  };
+
+  async function dataRequest() {
+    const data = await fetch("https://todo-redev.herokuapp.com/api/users");
+    const response = await data.json();
+    console.log({ response });
+  }
+
   useEffect(() => {
+    dataRequest();
     console.log("FuncComp-componentDidMount");
-    return async function dataRequest() {
-      const response = await fetch(
-        "https://todo-redev.herokuapp.com/api/users"
-      );
-      const data = await response.json();
-      console.log({ data });
-    };
   }, []);
 
   useEffect(() => {
@@ -22,6 +20,10 @@ const LifecycleCompFunc = () => {
   useEffect(() => {
     return () => console.log("componentWillUnmount");
   }, []);
+
+  const handleClickIncrement = () => {
+    return setCount((prev) => prev + 1);
+  };
   return (
     <div>
       <p>FuncComp</p>
